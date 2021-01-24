@@ -1,45 +1,100 @@
 public class Pecahan {
-    public int pembilang, penyebut;
-    public int getpembilang() {
-     return pembilang;  }
-    public int getpenyebut() {
-     return penyebut;   }
-    Pecahan(int pembilang, int penyebut) {
-        this.penyebut = penyebut; this.pembilang = pembilang; }
-    public Pecahan tambah(Pecahan p)
-    {
-      int data1, data2;   int data3; Pecahan d1;
-      d1 = p;       data1 = p.penyebut;    data2 = p.pembilang;
-      Pecahan d2 = new Pecahan(5,6);
-System.out.print("objek2 : ");     System.out.print(+d2.getpembilang());
-      System.out.print("/"); System.out.print(+d2.getpenyebut());
-      System.out.println();
-       p.penyebut = data1 * d2.penyebut;
-      p.pembilang = d2.penyebut*data2 + data1*d2.pembilang;
-      return p;    
+    int bulat,pembilang,penyebut;
+    
+    Pecahan1(){
+        bulat=0;pembilang=0;penyebut=1;
     }
-    public static void main(String [] args) {
-        Pecahan p;
-        int x, y;
-        Pecahan d1 = new Pecahan(3,2);
-         System.out.println("NAMA    : FAIRUZ ZAMRODY");
-        System.out.println("NIM     : 19051397056 ");
-        System.out.println("PRODI   : D4 MANAJEMEN INFORMATIKA \n");
-
-
-        System.out.println("    ======================<||> PECAHAN <||>==========================\n\n");
-        System.out.print("objek1 : ");
-        System.out.print(+d1.getpembilang());
-        System.out.print("/");
-        System.out.print(+d1.getpenyebut());
-        System.out.println();
-        //pecahan hasil = new pecahan(x, y);
-        p = d1.tambah(d1);
-        x = p.pembilang;
-        y = p.penyebut;
-        System.out.print( "hasil : " +x);
-        System.out.print("/");
-        System.out.print(+y);
-        System.out.println();
-       }
+    Pecahan1(int x){
+        bulat=x;pembilang=0;penyebut=1;
+    }
+    Pecahan1(int x,int y){
+        bulat=0;pembilang=x;penyebut=y;
+    }
+    Pecahan1(int x,int y,int z){
+        bulat=x;pembilang=y;penyebut=z;
+    }
+    int fpb(int x,int y){
+        if(y==0)return(x);
+        else return (fpb(y,x%y));
+    }
+    
+    void reduksi(){
+        int temp=fpb(pembilang,penyebut);
+        pembilang=pembilang/temp;
+        penyebut=penyebut/temp;
+        if(pembilang>=penyebut){
+            bulat=pembilang/penyebut;
+            pembilang=pembilang%penyebut;
+        }
+        else bulat=0;
+               
+        }
+    Pecahan1 tambah(Pecahan1 X){
+        Pecahan1 T= new Pecahan1();
+        T.bulat=0;
+        
+        T.pembilang=(bulat*penyebut+pembilang)*X.penyebut+penyebut*(X.bulat*X.penyebut+X.pembilang);
+        T.penyebut=penyebut*X.penyebut;
+        T.reduksi();
+        return T;
+    }
+     Pecahan1 kurang(Pecahan1 X){
+         Pecahan1 T=new Pecahan1();
+         T.bulat=0;
+         
+         T.pembilang=(bulat*penyebut+pembilang)*X.penyebut;
+         
+         T.penyebut=penyebut*(X.bulat*X.penyebut+X.pembilang);
+         T.reduksi();
+         return T;
+     }
+     Pecahan1 kali(Pecahan1 X){
+         Pecahan1 T=new Pecahan1();
+         T.bulat=0;
+         
+         T.pembilang= (bulat*penyebut+pembilang)*(X.bulat*X.penyebut+X.pembilang);
+         T.penyebut=penyebut*X.penyebut;
+         T.reduksi();
+         return T;
+     }
+     Pecahan1 bagi(Pecahan1 X){
+         Pecahan1 T=new Pecahan1();
+         T.bulat=0;
+         
+         T.pembilang= (bulat*penyebut+pembilang)*X.penyebut;
+         T.penyebut=penyebut*(X.bulat*X.penyebut+X.pembilang);
+         T.reduksi();
+         return T;
+     }
+     String toStr(){
+         String T="";
+         if(penyebut==1)
+             if(pembilang==0)
+                 T=T+bulat;
+             else{
+                 T=T+(bulat+pembilang);
+                 pembilang=0;
+             }
+         else if(bulat==0)
+             T=T+pembilang+"/"+penyebut;
+                 else
+                 T=T+bulat+" "+pembilang+"/"+penyebut;
+                 return (T);
+                 
+             }
+     public static void main(String[]args){
+         Pecahan1 p=new Pecahan1 (2,4);
+         Pecahan1 p1=new Pecahan1 ();
+         Pecahan1 p2=new Pecahan1 (2);
+         Pecahan1 p3=new Pecahan1 (5,2,3);
+         
+         System.out.println("\nContoh Operasi Penjumlahan Pecahan");
+         System.out.println(p.toStr()+" + "+p3.toStr()+ " = " +p.tambah(p3).toStr());
+         System.out.println("\nContoh Operasi Gabungan Pecahan ");
+         System.out.println(p.toStr()+ " : "+p2.toStr()+ " X "+p3.toStr()+" + "+p2.toStr()+" = " );
+         p2=p2.tambah(p3.kali(p.bagi(p2)));
+         System.out.println(p2.toStr());
+         
+    }
+    
 }
