@@ -1,5 +1,5 @@
 public class Trainee extends Member{
-    private int lamaTraining;
+    public int lamaTraining;
     
     public Trainee(String nama , int umur , int lamaTraining){
         super(nama,umur);
