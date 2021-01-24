@@ -1,5 +1,5 @@
 public class Trainee extends Member{
-    public int lamaTraining;
+   private int lamaTraining;
     
     public Trainee(String nama , int umur , int lamaTraining){
         super(nama,umur);
@@ -9,9 +9,8 @@ public class Trainee extends Member{
         return this.lamaTraining;
     }
     @Override
-    public void display(){
-        System.out.println("Nama : " + this.nama);
-        System.out.println("Umur : " + this.umur);
+    public void display() {
+        super.display();
         System.out.println("Lama Training : " this.lamaTraining);
     }
 }
